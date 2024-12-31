@@ -1,0 +1,30 @@
+.site-structure{
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+
+#overview-books{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(200px, 1fr));
+    gap: 16px;
+    grid-column: 1/2;
+}
+
+.book{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 2px 2px 2px;
+}
+
+.book>.p:nth-of-type(1){
+    font-style: italic;
+}
+
+.book>.p:nth-of-type(2){
+    font-size: 18px;
+}
+
+.form{
+    grid-column: 2/3;
+}
