@@ -15,6 +15,8 @@ addBookToLibrary(hp);
 addBookToLibrary(igg);
 
 //loop to create one book class div in DOM
+function refreshBooks(){
+    target.innerHTML ="";
 myLibrary.forEach((element) => {
     const book = document.createElement("div");
     book.className = "book"
@@ -30,6 +32,7 @@ myLibrary.forEach((element) => {
     book.appendChild(year);
     target.appendChild(book);
 });
+}
 
 
 // erstellen von einem div, das alle bücher drinnen hat mit grid und klasse "overview books"
@@ -43,7 +46,43 @@ myLibrary.forEach((element) => {
 //erstellen eines p mit datum mit klasse "date"
 
 
+document.getElementById("bookForm").addEventListener("submit", function(event){
+    event.preventDefault();
 
+    const form = document.getElementById("bookForm");
+    const name = document.getElementById("name");
+    const author = document.getElementById("author");
+    const year= document.getElementById("year");
+
+    const alert = document.createElement("p");
+    alert.className = "alert";
+    
+    if(name.value == ""){
+
+        form.replaceChildren(form.firstElementChild);
+        alert.textContent = "Please fill in a name";
+        form.appendChild(alert);
+    }
+    else if(author.value ==""){
+        form.replaceChildren(form.firstElementChild);
+        alert.textContent = "Please fill in an author";
+        form.appendChild(alert);
+    }
+    else if(year.value == ""){
+        form.replaceChildren(form.firstElementChild);
+        alert.textContent = "Please fill in a year";
+        form.appendChild(alert);
+
+    }
+    else{
+        form.replaceChildren(form.firstElementChild);
+        const newBook = new Book(name.value,author.value,year.value);
+        addBookToLibrary(newBook);
+        refreshBooks();
+        event.target.reset();
+}
+}
+);
 
 function Book (name, author, year){
     this.name = name;
@@ -52,8 +91,6 @@ function Book (name, author, year){
 }
 
 function addBookToLibrary(obj){
-    return myLibrary.push(obj);
-}
-
-function showMyLibrary(){
+    myLibrary.push(obj);
+    refreshBooks();
 }
